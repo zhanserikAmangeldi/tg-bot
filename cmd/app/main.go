@@ -3,14 +3,8 @@ package main
 import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/zhanserikAmangeldi/tg-bot/internal/config"
-	"github.com/zhanserikAmangeldi/tg-bot/internal/domain"
 	"github.com/zhanserikAmangeldi/tg-bot/internal/handler"
 	"log"
-)
-
-var (
-	alerts     = make(map[int64][]domain.PriceAlert)
-	binanceAPI = "https://api.binance.com/api/v3/ticker/price?symbol="
 )
 
 func main() {

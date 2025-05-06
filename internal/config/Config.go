@@ -2,7 +2,13 @@ package config
 
 import (
 	"github.com/joho/godotenv"
+	"github.com/zhanserikAmangeldi/tg-bot/internal/domain"
 	"os"
+)
+
+var (
+	alerts     = make(map[int64][]domain.PriceAlert)
+	BinanceAPI = "https://api.binance.com/api/v3/ticker/price?symbol="
 )
 
 type Config struct {
