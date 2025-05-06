@@ -4,6 +4,7 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/zhanserikAmangeldi/tg-bot/internal/config"
 	"github.com/zhanserikAmangeldi/tg-bot/internal/domain"
+	"github.com/zhanserikAmangeldi/tg-bot/internal/handler"
 	"log"
 )
 
@@ -28,4 +29,23 @@ func main() {
 
 	bot.Debug = true
 	log.Printf("Authorized on account %s", bot.Self.UserName)
+
+	updateConfig := tgbotapi.NewUpdate(0)
+	updateConfig.Timeout = 60
+
+	updates := bot.GetUpdatesChan(updateConfig)
+
+	for update := range updates {
+		if update.Message == nil {
+			continue
+		}
+
+		msg := update.Message
+
+		log.Printf("[%s] %s", msg.From.UserName, msg.Text)
+
+		if msg.IsCommand() {
+			handler.HandleCommand(bot, msg)
+		}
+	}
 }
